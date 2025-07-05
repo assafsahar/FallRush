@@ -1,0 +1,17 @@
+{
+    "name": "Online",
+    "rootNamespace": "",
+    "references": [
+        "GUID:2d37751d9dd43404190b1ef5241daf5b",
+        "GUID:a03846192c317c0468c9174d0dd4589c"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
