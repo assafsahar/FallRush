@@ -1,8 +1,16 @@
-namespace Core.Events
+using UnityEngine;
+
+public class GameEvents : MonoBehaviour
 {
-    public static class GameEvents
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
     {
-        // public static Action OnGameStart;
-        // public static Action<int> OnStrikeChanged;
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
     }
 }
