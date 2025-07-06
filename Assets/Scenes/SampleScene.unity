@@ -119,6 +119,51 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &97440182
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 97440184}
+  - component: {fileID: 97440183}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &97440183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 97440182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c97a9b34b4a86424bb4f7b47974d6b22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jointsToGameOver: 6
+--- !u!4 &97440184
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 97440182}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &231971958
 GameObject:
   m_ObjectHideFlags: 0
@@ -136,7 +181,7 @@ GameObject:
   - component: {fileID: 231971965}
   m_Layer: 0
   m_Name: Ragdoll_LegL
-  m_TagString: Untagged
+  m_TagString: Left
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -223,7 +268,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.5
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 1
@@ -326,9 +371,9 @@ HingeJoint2D:
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
   m_BreakAction: 3
-  m_AutoConfigureConnectedAnchor: 1
+  m_AutoConfigureConnectedAnchor: 0
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: -1.53, y: -0.6000004}
+  m_ConnectedAnchor: {x: -1.53, y: 0.11}
   m_UseConnectedAnchor: 1
   m_UseMotor: 0
   m_Motor:
@@ -355,7 +400,7 @@ GameObject:
   - component: {fileID: 445066581}
   m_Layer: 0
   m_Name: Ragdoll_ArmL
-  m_TagString: Untagged
+  m_TagString: Left
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -442,7 +487,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.5
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 1
@@ -545,9 +590,9 @@ HingeJoint2D:
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
   m_BreakAction: 3
-  m_AutoConfigureConnectedAnchor: 1
+  m_AutoConfigureConnectedAnchor: 0
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: -4.03, y: 8.26}
+  m_ConnectedAnchor: {x: -2.44, y: 8.259998}
   m_UseConnectedAnchor: 1
   m_UseMotor: 0
   m_Motor:
@@ -936,7 +981,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.5
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 1
@@ -1012,7 +1057,7 @@ MonoBehaviour:
   obstacleTag: Obstacle
   hitEffectPrefab: {fileID: 0}
   continuousEffectPrefab: {fileID: 0}
-  hitsToDetach: 2
+  hitsToDetach: 5
 --- !u!233 &724127335
 HingeJoint2D:
   m_ObjectHideFlags: 0
@@ -1027,9 +1072,9 @@ HingeJoint2D:
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
   m_BreakAction: 3
-  m_AutoConfigureConnectedAnchor: 1
-  m_Anchor: {x: 0.034546733, y: -0.9500351}
-  m_ConnectedAnchor: {x: 0.5545467, y: 10.049965}
+  m_AutoConfigureConnectedAnchor: 0
+  m_Anchor: {x: 0.034546733, y: -0.03}
+  m_ConnectedAnchor: {x: 0.5545467, y: 10.05}
   m_UseConnectedAnchor: 1
   m_UseMotor: 0
   m_Motor:
@@ -1039,6 +1084,58 @@ HingeJoint2D:
   m_AngleLimits:
     m_LowerAngle: -10
     m_UpperAngle: 10
+--- !u!1 &767704396
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 767704398}
+  - component: {fileID: 767704397}
+  m_Layer: 0
+  m_Name: 'ObstacleSpawner '
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &767704397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 767704396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8559f1a4db0fe64dada75b1376895b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstaclePrefabs:
+  - {fileID: 5920604935543906143, guid: 70a3d713c84dbb743b0bf2eaa6c69174, type: 3}
+  poolCapacity: 10
+  poolMaxSize: 30
+  player: {fileID: 1428454716}
+  spawnDistance: 100
+  spawnRangeX: 30
+  initialSpawnCount: 10
+--- !u!4 &767704398
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 767704396}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &823718097
 GameObject:
   m_ObjectHideFlags: 0
@@ -1056,7 +1153,7 @@ GameObject:
   - component: {fileID: 823718104}
   m_Layer: 0
   m_Name: Ragdoll_ArmR
-  m_TagString: Untagged
+  m_TagString: Right
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1143,7 +1240,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.5
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 1
@@ -1246,9 +1343,9 @@ HingeJoint2D:
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
   m_BreakAction: 3
-  m_AutoConfigureConnectedAnchor: 1
+  m_AutoConfigureConnectedAnchor: 0
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 4.97, y: 8.28}
+  m_ConnectedAnchor: {x: 3.4, y: 8.279999}
   m_UseConnectedAnchor: 1
   m_UseMotor: 0
   m_Motor:
@@ -1275,7 +1372,7 @@ GameObject:
   - component: {fileID: 872024570}
   m_Layer: 0
   m_Name: Ragdoll_LegR
-  m_TagString: Untagged
+  m_TagString: Right
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1362,7 +1459,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.5
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_GravityScale: 1
@@ -1465,9 +1562,9 @@ HingeJoint2D:
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
   m_BreakAction: 3
-  m_AutoConfigureConnectedAnchor: 1
+  m_AutoConfigureConnectedAnchor: 0
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 4.48, y: -0.6000004}
+  m_ConnectedAnchor: {x: 4.48, y: 0.12}
   m_UseConnectedAnchor: 1
   m_UseMotor: 0
   m_Motor:
@@ -1486,6 +1583,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 932301013}
+  - component: {fileID: 932301014}
   m_Layer: 0
   m_Name: Ragdoll
   m_TagString: Untagged
@@ -1502,7 +1600,7 @@ Transform:
   m_GameObject: {fileID: 932301012}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 36, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1515,6 +1613,24 @@ Transform:
   - {fileID: 872024564}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &932301014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 932301012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 425a87ebd734dce41998bdeee5e9af0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bodyRigidbody: {fileID: 1428454718}
+  moveSpeed: 30
+  maxSpeedX: 100
+  controlSensitivity: 1
+  boundaryPadding: 0.2
+  maxFallSpeed: -50
 --- !u!1 &1330290319
 GameObject:
   m_ObjectHideFlags: 0
@@ -1528,7 +1644,6 @@ GameObject:
   - component: {fileID: 1330290322}
   - component: {fileID: 1330290323}
   - component: {fileID: 1330290324}
-  - component: {fileID: 1330290325}
   - component: {fileID: 1330290326}
   m_Layer: 0
   m_Name: Ragdoll_Bottom
@@ -1692,32 +1807,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71920e9b44ead6146acc75209981b8f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!233 &1330290325
-HingeJoint2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1330290319}
-  m_Enabled: 0
-  serializedVersion: 4
-  m_EnableCollision: 0
-  m_ConnectedRigidBody: {fileID: 1428454718}
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
-  m_BreakAction: 2
-  m_AutoConfigureConnectedAnchor: 1
-  m_Anchor: {x: 0, y: 1}
-  m_ConnectedAnchor: {x: 0, y: 0}
-  m_UseConnectedAnchor: 1
-  m_UseMotor: 0
-  m_Motor:
-    m_MotorSpeed: 0
-    m_MaximumMotorForce: 10000
-  m_UseLimits: 0
-  m_AngleLimits:
-    m_LowerAngle: 0
-    m_UpperAngle: 0
 --- !u!255 &1330290326
 FixedJoint2D:
   m_ObjectHideFlags: 0
@@ -1908,7 +1997,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1428454715}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a9eea619a2e96c24bb54d26a0643b1e7, type: 3}
   m_Name: 
@@ -1933,3 +2022,5 @@ SceneRoots:
   - {fileID: 519420032}
   - {fileID: 619394802}
   - {fileID: 932301013}
+  - {fileID: 767704398}
+  - {fileID: 97440184}
