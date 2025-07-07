@@ -9,6 +9,8 @@ namespace Game.Obstacles
     {
         [Header("Prefabs List")]
         [SerializeField] private List<GameObject> obstaclePrefabs;
+        [SerializeField] private float obstacleYOffsetFromCamera = 15f;
+
 
         [Header("Pooling Settings")]
         [SerializeField] private int poolCapacity = 10;
@@ -65,6 +67,7 @@ namespace Game.Obstacles
             if (returnToPool == null)
                 returnToPool = obj.AddComponent<ReturnToPool>();
             returnToPool.SetPool(pool);
+            returnToPool.SetYOffsetFromCamera(obstacleYOffsetFromCamera);
 
             // Adding spin
             var rotator = obj.GetComponent<ObstacleRotator>();

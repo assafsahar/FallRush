@@ -1115,6 +1115,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obstaclePrefabs:
   - {fileID: 5920604935543906143, guid: 70a3d713c84dbb743b0bf2eaa6c69174, type: 3}
+  obstacleYOffsetFromCamera: 80
   poolCapacity: 10
   poolMaxSize: 30
   player: {fileID: 1428454716}

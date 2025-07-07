@@ -7,6 +7,7 @@ namespace Core.Utils
     {
         private ObjectPool<GameObject> pool;
         private Camera mainCam;
+        private float yOffsetFromCamera = 5f;
 
         // Set the pool that this object belongs to
         public void SetPool(ObjectPool<GameObject> _pool)
@@ -18,10 +19,16 @@ namespace Core.Utils
         private void Update()
         {
             // Return the object to pool if it moves above the camera by 5 units
-            if (mainCam && transform.position.y > mainCam.transform.position.y + 5f)
+            if (mainCam && transform.position.y > mainCam.transform.position.y + yOffsetFromCamera)
             {
                 pool.Release(gameObject);
             }
+
+        }
+
+        public void SetYOffsetFromCamera(float offset)
+        {
+            yOffsetFromCamera = offset;
         }
     }
 }
