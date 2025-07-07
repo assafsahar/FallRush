@@ -18,17 +18,22 @@ namespace Core.Utils
 
         private void Update()
         {
-            // Return the object to pool if it moves above the camera by 5 units
-            if (mainCam && transform.position.y > mainCam.transform.position.y + yOffsetFromCamera)
-            {
-                pool.Release(gameObject);
-            }
-
+            CheckIfShouldReturnToPool();
         }
 
         public void SetYOffsetFromCamera(float offset)
         {
             yOffsetFromCamera = offset;
         }
+
+        private void CheckIfShouldReturnToPool()
+        {
+            if (mainCam && transform.position.y > mainCam.transform.position.y + yOffsetFromCamera)
+            {
+                pool.Release(gameObject);
+            }
+        }
+
+        
     }
 }

@@ -27,6 +27,20 @@ namespace Game.Obstacles
 
         private void Awake()
         {
+            InitializePools();
+            InitializeObstacles();
+        }
+
+        private void InitializeObstacles()
+        {
+            // Initial spawn of obstacles below the player
+            nextSpawnY = player.position.y - spawnDistance;
+            for (int i = 0; i < initialSpawnCount; i++)
+                SpawnRandomObstacle();
+        }
+
+        private void InitializePools()
+        {
             // Create a pool for each obstacle prefab
             pools = new List<ObjectPool<GameObject>>();
             foreach (var prefab in obstaclePrefabs)
@@ -39,44 +53,57 @@ namespace Game.Obstacles
                     true, poolCapacity, poolMaxSize
                 ));
             }
-            // Initial spawn of obstacles below the player
-            nextSpawnY = player.position.y - spawnDistance;
-            for (int i = 0; i < initialSpawnCount; i++)
-                SpawnRandomObstacle();
         }
 
         private void Update()
         {
-            // Spawn obstacles when the player gets close to the lower screen edge
+            TrySpawnObstaclesIfNeeded();
+        }
+
+        private void TrySpawnObstaclesIfNeeded()
+        {
             while (player.position.y - nextSpawnY < spawnDistance * initialSpawnCount)
                 SpawnRandomObstacle();
         }
+
 
         private void SpawnRandomObstacle()
         {
             int prefabIndex = Random.Range(0, pools.Count);
             var pool = pools[prefabIndex];
             GameObject obj = pool.Get();
+            SetObstaclePosition(obj);
+            SetupReturnToPool(pool, obj);
+            SetupObstacleRotation(obj);
 
-            // Set random X, fixed Y for the obstacle
-            float x = player.position.x + Random.Range(-spawnRangeX, spawnRangeX);
-            obj.transform.position = new Vector3(x, nextSpawnY, 0f);
+            nextSpawnY -= spawnDistance;
+        }
 
-            // Attach the ReturnToPool component if missing, and set pool reference
-            var returnToPool = obj.GetComponent<ReturnToPool>();
-            if (returnToPool == null)
-                returnToPool = obj.AddComponent<ReturnToPool>();
-            returnToPool.SetPool(pool);
-            returnToPool.SetYOffsetFromCamera(obstacleYOffsetFromCamera);
-
+        private static void SetupObstacleRotation(GameObject obj)
+        {
             // Adding spin
             var rotator = obj.GetComponent<ObstacleRotator>();
             if (rotator == null)
                 rotator = obj.AddComponent<ObstacleRotator>();
             float randomSpeed = Random.Range(-180f, 180f);
             rotator.SetRotationSpeed(randomSpeed);
+        }
 
-            nextSpawnY -= spawnDistance;
+        private void SetupReturnToPool(ObjectPool<GameObject> pool, GameObject obj)
+        {
+            // Attach the ReturnToPool component if missing, and set pool reference
+            var returnToPool = obj.GetComponent<ReturnToPool>();
+            if (returnToPool == null)
+                returnToPool = obj.AddComponent<ReturnToPool>();
+            returnToPool.SetPool(pool);
+            returnToPool.SetYOffsetFromCamera(obstacleYOffsetFromCamera);
+        }
+
+        private void SetObstaclePosition(GameObject obj)
+        {
+            // Set random X, fixed Y for the obstacle
+            float x = player.position.x + Random.Range(-spawnRangeX, spawnRangeX);
+            obj.transform.position = new Vector3(x, nextSpawnY, 0f);
         }
     }
 }

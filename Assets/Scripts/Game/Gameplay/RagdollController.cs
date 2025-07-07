@@ -28,6 +28,11 @@ namespace Game.GamePlay
 
         private void Update()
         {
+            HandleInput();
+        }
+
+        private void HandleInput()
+        {
             // Touch (mobile)
             if (Input.touchCount > 0)
             {
@@ -53,12 +58,24 @@ namespace Game.GamePlay
 
         private void FixedUpdate()
         {
-            // Clamp falling speed to maxFallSpeed
-            Vector2 lv = bodyRigidbody.linearVelocity;
-            if (lv.y < maxFallSpeed)
-                lv.y = maxFallSpeed;
-            bodyRigidbody.linearVelocity = lv;
+            ClampFallSpeed();
+            MoveRagdoll();
+            ClampPosition();
+        }
 
+        private void ClampPosition()
+        {
+            // Clamp position to X bounds
+            Vector2 pos = bodyRigidbody.position;
+            if (pos.x < minX)
+                pos.x = minX;
+            else if (pos.x > maxX)
+                pos.x = maxX;
+            bodyRigidbody.position = pos;
+        }
+
+        private void MoveRagdoll()
+        {
             float velocityX = 0f;
 
             if (isTouching)
@@ -81,14 +98,15 @@ namespace Game.GamePlay
 
             Vector2 newLinearVelocity = new Vector2(velocityX, bodyRigidbody.linearVelocity.y);
             bodyRigidbody.linearVelocity = newLinearVelocity;
+        }
 
-            // Clamp position to X bounds
-            Vector2 pos = bodyRigidbody.position;
-            if (pos.x < minX)
-                pos.x = minX;
-            else if (pos.x > maxX)
-                pos.x = maxX;
-            bodyRigidbody.position = pos;
+        private void ClampFallSpeed()
+        {
+            // Clamp falling speed to maxFallSpeed
+            Vector2 lv = bodyRigidbody.linearVelocity;
+            if (lv.y < maxFallSpeed)
+                lv.y = maxFallSpeed;
+            bodyRigidbody.linearVelocity = lv;
         }
     }
 }
