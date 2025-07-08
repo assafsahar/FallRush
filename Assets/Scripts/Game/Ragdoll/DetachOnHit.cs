@@ -21,48 +21,65 @@ namespace Game.Ragdoll
             collider2D = GetComponent<Collider2D>();
         }
 
-        private void OnTriggerEnter2D(Collider2D collision)
+        private void OnCollisionEnter2D(Collision2D collision)
         {
-            if (isDetached || !collision.CompareTag(obstacleTag))
+            if (isDetached || !collision.collider.CompareTag(obstacleTag))
                 return;
-            Destroy(collision.gameObject);
+
+            ApplyHorizontalPush(collision.transform.position);
+            TurnOffCollider(collision);
+
+            HandleHit(collision.collider.gameObject);
+        }
+
+        private static void TurnOffCollider(Collision2D collision)
+        {
+            Collider2D obstacleCollider = collision.gameObject.GetComponent<Collider2D>();
+            if (obstacleCollider != null)
+            {
+                obstacleCollider.enabled = false;
+            }
+        }
+
+        private void ApplyHorizontalPush(Vector2 fromPosition)
+        {
+            Rigidbody2D rb = GetComponent<Rigidbody2D>();
+            if (rb == null) return;
+
+            // Calculate horizontal direction only
+            float direction = transform.position.x > fromPosition.x ? 1f : -1f;
+            Vector2 force = new Vector2(direction * 200f, 0f); // Adjust force if needed
+            rb.AddForce(force, ForceMode2D.Impulse);
+        }
+
+        private void HandleHit(GameObject obstacle)
+        {
+            //Destroy(obstacle);
             hitCount++;
 
             Quaternion rotation = Quaternion.identity;
             if (gameObject.CompareTag("Left"))
-            {
                 rotation = Quaternion.Euler(0, 0, 180);
-            }
             else if (gameObject.CompareTag("Right"))
-            {
                 rotation = Quaternion.Euler(0, 0, 0);
-            }
-            // Play "hit" effect at every hit
-            if (hitEffectPrefab != null)
-            {
-                Instantiate(hitEffectPrefab, transform.position, rotation);
-            }
 
-            // Detach only after enough hits
+            if (hitEffectPrefab != null)
+                Instantiate(hitEffectPrefab, transform.position, rotation);
+
             if (hitCount >= hitsToDetach && hingeJoint != null)
             {
-                Rigidbody2D connected = hingeJoint.connectedBody;
-
-                // Spawn continuous effect at the connection point (optional)
-                if (continuousEffectPrefab != null && connected != null)
+                if (continuousEffectPrefab != null && hingeJoint.connectedBody != null)
                 {
-                    Vector3 worldAnchor = connected.transform.TransformPoint(hingeJoint.connectedAnchor);
+                    Vector3 worldAnchor = hingeJoint.connectedBody.transform.TransformPoint(hingeJoint.connectedAnchor);
                     Quaternion effectRotation = transform.rotation;
                     GameObject effect = Instantiate(continuousEffectPrefab, worldAnchor, effectRotation);
-                    effect.transform.SetParent(connected.transform);
+                    effect.transform.SetParent(hingeJoint.connectedBody.transform);
                 }
 
                 StartCoroutine(DetachJoint());
                 if (GameManager.Instance != null)
                     GameManager.Instance.RegisterJointDetached();
                 isDetached = true;
-
-
             }
         }
         private IEnumerator DetachJoint()
