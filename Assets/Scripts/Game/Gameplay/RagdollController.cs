@@ -12,6 +12,7 @@ namespace Game.GamePlay
         [SerializeField] private float maxFallSpeed = -20f;
         [SerializeField] float screenBottomPercent = 0.3f;
         [SerializeField] private float easing = 0.15f;
+        [SerializeField] private float gyroSensitivity = 6f;
 
         private float minX;
         private float maxX;
@@ -107,7 +108,8 @@ namespace Game.GamePlay
                 tilt = Input.GetKey(KeyCode.LeftArrow) ? -1f :
                        Input.GetKey(KeyCode.RightArrow) ? 1f : 0f;
 #endif
-                targetVelocityX = tilt * moveSpeed * controlSensitivity;
+                targetVelocityX = tilt * moveSpeed * controlSensitivity * gyroSensitivity;
+
                 targetVelocityX = Mathf.Clamp(targetVelocityX, -maxSpeedX, maxSpeedX);
             }
             // easing

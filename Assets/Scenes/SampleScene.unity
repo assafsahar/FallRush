@@ -1900,10 +1900,11 @@ MonoBehaviour:
   moveSpeed: 30
   maxSpeedX: 100
   controlSensitivity: 1
-  boundaryPadding: 10
+  boundaryPadding: 5
   maxFallSpeed: -50
   screenBottomPercent: 0.3
   easing: 0.2
+  gyroSensitivity: 4
 --- !u!1 &1330290319
 GameObject:
   m_ObjectHideFlags: 0
@@ -2275,7 +2276,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9eea619a2e96c24bb54d26a0643b1e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spinTorque: -50
+  spinTorque: -100
 --- !u!114 &1428454721
 MonoBehaviour:
   m_ObjectHideFlags: 0
