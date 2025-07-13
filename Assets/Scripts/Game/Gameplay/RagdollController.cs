@@ -10,11 +10,14 @@ namespace Game.GamePlay
         [SerializeField] private float controlSensitivity = 1f;
         [SerializeField] private float boundaryPadding = 0.2f; // Space between player and edge
         [SerializeField] private float maxFallSpeed = -20f;
+        [SerializeField] float screenBottomPercent = 0.3f;
+        [SerializeField] private float easing = 0.15f;
 
         private float minX;
         private float maxX;
         private bool isTouching = false;
         private float targetX;
+        private float currentVelocityX = 0f;
 
         private void Start()
         {
@@ -36,19 +39,31 @@ namespace Game.GamePlay
             // Touch (mobile)
             if (Input.touchCount > 0)
             {
-                isTouching = true;
                 Touch touch = Input.GetTouch(0);
-                Vector3 touchWorldPos = Camera.main.ScreenToWorldPoint(touch.position);
-                targetX = touchWorldPos.x;
+                Vector2 pos = touch.position;
+                if (pos.y < Screen.height * screenBottomPercent)
+                {
+                    isTouching = true;
+                    if (pos.x < Screen.width / 2f)
+                        targetX = bodyRigidbody.position.x - 1f; 
+                    else
+                        targetX = bodyRigidbody.position.x + 1f;
+                }
                 if (touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled)
                     isTouching = false;
             }
             // Mouse (editor/desktop)
             else if (Input.GetMouseButton(0))
             {
-                isTouching = true;
-                Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                targetX = mouseWorldPos.x;
+                Vector2 pos = Input.mousePosition;
+                if (pos.y < Screen.height * screenBottomPercent)
+                {
+                    isTouching = true;
+                    if (pos.x < Screen.width / 2f)
+                        targetX = bodyRigidbody.position.x - 1f;
+                    else
+                        targetX = bodyRigidbody.position.x + 1f;
+                }
             }
             else
             {
@@ -76,13 +91,13 @@ namespace Game.GamePlay
 
         private void MoveRagdoll()
         {
-            float velocityX = 0f;
+            float targetVelocityX = 0f;
 
             if (isTouching)
             {
                 float direction = targetX - bodyRigidbody.position.x;
-                velocityX = direction * moveSpeed * controlSensitivity;
-                velocityX = Mathf.Clamp(velocityX, -maxSpeedX, maxSpeedX);
+                targetVelocityX = direction * moveSpeed * controlSensitivity;
+                targetVelocityX = Mathf.Clamp(targetVelocityX, -maxSpeedX, maxSpeedX);
             }
             else
             {
@@ -92,11 +107,13 @@ namespace Game.GamePlay
                 tilt = Input.GetKey(KeyCode.LeftArrow) ? -1f :
                        Input.GetKey(KeyCode.RightArrow) ? 1f : 0f;
 #endif
-                velocityX = tilt * moveSpeed * controlSensitivity;
-                velocityX = Mathf.Clamp(velocityX, -maxSpeedX, maxSpeedX);
+                targetVelocityX = tilt * moveSpeed * controlSensitivity;
+                targetVelocityX = Mathf.Clamp(targetVelocityX, -maxSpeedX, maxSpeedX);
             }
+            // easing
+            currentVelocityX = Mathf.Lerp(currentVelocityX, targetVelocityX, easing);
 
-            Vector2 newLinearVelocity = new Vector2(velocityX, bodyRigidbody.linearVelocity.y);
+            Vector2 newLinearVelocity = new Vector2(currentVelocityX, bodyRigidbody.linearVelocity.y);
             bodyRigidbody.linearVelocity = newLinearVelocity;
         }
 
