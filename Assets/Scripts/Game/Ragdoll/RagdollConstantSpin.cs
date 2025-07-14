@@ -2,9 +2,10 @@ using UnityEngine;
 
 namespace Game.Ragdoll
 {
+    [RequireComponent(typeof(Rigidbody2D))]
     public class RagdollConstantSpin : MonoBehaviour
     {
-        [SerializeField] private float spinTorque = 2f;
+        [SerializeField] private float spinPower = -90f; // Degrees per second
 
         private Rigidbody2D rb;
 
@@ -15,10 +16,7 @@ namespace Game.Ragdoll
 
         private void FixedUpdate()
         {
-            if (Mathf.Abs(rb.angularVelocity) < 0.1f)
-                rb.angularVelocity = 0f; 
-            rb.AddTorque(spinTorque);
+            rb.angularVelocity = spinPower;
         }
-
     }
 }
